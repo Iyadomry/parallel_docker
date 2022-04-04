@@ -45,6 +45,7 @@ def docker1() {
                 stage ("task_1"){    
                     node('jenkins') {  
                         sh  "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                        sleep 30
                     }
                 }
             }
@@ -52,6 +53,7 @@ def docker1() {
                 stage ("task_2"){    
                     node('jenkins') {  
                         sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+                        sleep 30
                     }
                 }
             }
