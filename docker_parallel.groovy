@@ -8,7 +8,6 @@ def docker1() {
     node(label: 'jenkins') {
         properties(
         [parameters([string(defaultValue: '58', name: 'port1'), string(defaultValue: 'app3', name: 'name1' )])]
-        [parameters([string(defaultValue: '59', name: 'port2'), string(defaultValue: 'app4', name: 'name2' )])]
         )
         try {
             stage('remove all running containers') {
