@@ -16,13 +16,25 @@ def docker1() {
             currentBuild.result = 'SUCCESS'
             }
 
-        stage('Deply my application as a container') {
-            ansiColor('xterm') {
-                echo "\u001B[31mbuild new container\u001B[0m"
-                sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
-                sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
-            }
+        // stage('Deply my application as a container') {
+        //     ansiColor('xterm') {
+        //         echo "\u001B[31mbuild new container\u001B[0m"
+        //         sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+        //         sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+        //     }
+        // }
+
+        def stage = [:]
+        stage("stage1") = {
+            sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
         }
+        stage("stage2") = {
+            sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+        }
+
+        parallel stage
+
+
         stage(name: 'check if the container os running') {
             sh 'docker ps -a'
             sh "curl localhost:${port1} "
@@ -32,3 +44,14 @@ def docker1() {
 }
 
 return this
+
+
+// def stage = [:]
+// stage("stage1") = {
+//     sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+// }
+// stage("stage2") = {
+//     sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+// }
+
+// parallel stage
