@@ -63,11 +63,13 @@ def docker1() {
                         "StageA": {
                             stage("stage A") {
                                  sh  "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                                 sleep 15
                             }
                         },
                         "StageB": {
                             stage("stage B") {
                                 sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+                                sleep 15
                             }
                         }
                 )
