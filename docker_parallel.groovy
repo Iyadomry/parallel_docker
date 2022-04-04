@@ -25,12 +25,12 @@ def docker1() {
         // }
 
             def tasks  = [:] {
-                tasks("stage1") = {
+                tasks["stage1"] = {
                     stage("stage1"){
                         sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
                     }    
                 }
-                tasks("stage2") = {
+                tasks["stage2"] = {
                     stage("stage2") {
                         sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
                     }    
