@@ -16,30 +16,7 @@ def docker1() {
             currentBuild.result = 'SUCCESS'
             }
 
-        // stage('Deply my application as a container') {
-        //     ansiColor('xterm') {
-        //         echo "\u001B[31mbuild new container\u001B[0m"
-        //         sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
-        //         sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
-        //     }
-        // }
 
-            // def tasks  = [:] {
-            //     tasks["stage1"] = {
-            //         stage("stage1"){
-            //             sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
-            //         }    
-            //     }
-            //     tasks["stage2"] = {
-            //         stage("stage2") {
-            //             sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
-            //         }    
-            //     }
-
-            //     parallel tasks 
-
-            // }
-        
             // def tasks = [:]
             // tasks["task_1"] = {
             //     stage ("task_1"){    
@@ -59,22 +36,22 @@ def docker1() {
             // }
             // parallel tasks
             
-             parallel(
-                        "StageA": {
-                            stage("stage A") {
-                                 sh  "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
-                                 sh " docker inspect ${name1}"
-                                 sleep 15
-                            }
-                        },
-                        "StageB": {
-                            stage("stage B") {
-                                sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
-                                 sh " docker inspect ${name2}"
-                                sleep 15
-                            }
-                        }
-                )
+            parallel(
+                "StageA": {
+                    stage("Deploy ${name1} ") {
+                            sh  "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                            sh " docker inspect ${name1}"
+                            sleep 15
+                    }
+                },
+                "StageB": {
+                    stage("Deploy ${name2}") {
+                        sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+                        sh " docker inspect ${name2}"
+                        sleep 15
+                    }
+                }
+            )
 
 
         stage(name: 'check if the container os running') {
