@@ -18,7 +18,7 @@ def docker1() {
             parallel(
                 "StageA": {
                     stage("Deploy ${name1} ") {
-                            sh  "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                            sh  "docker run --name ${name1} -d --rm -p ${port1}:80  httpd:2.4"
                             sh " docker inspect ${name1}"
                             sleep 15
                     }
