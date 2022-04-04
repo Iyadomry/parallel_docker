@@ -40,20 +40,20 @@ def docker1() {
 
             // }
         
-                    def tasks = [:]
+            def tasks = [:]
             tasks["task_1"] = {
-            stage ("task_1"){    
-                node('jenkins') {  
-                    sh sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                stage ("task_1"){    
+                    node('jenkins') {  
+                        sh  "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                    }
                 }
-            }
             }
             tasks["task_2"] = {
-            stage ("task_2"){    
-                node('jenkins') {  
-                    sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+                stage ("task_2"){    
+                    node('jenkins') {  
+                        sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+                    }
                 }
-            }
             }
             parallel tasks
 
