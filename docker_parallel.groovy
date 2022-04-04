@@ -24,22 +24,38 @@ def docker1() {
         //     }
         // }
 
-            def tasks  = [:] {
-                tasks["stage1"] = {
-                    stage("stage1"){
-                        sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
-                    }    
-                }
-                tasks["stage2"] = {
-                    stage("stage2") {
-                        sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
-                    }    
-                }
+            // def tasks  = [:] {
+            //     tasks["stage1"] = {
+            //         stage("stage1"){
+            //             sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+            //         }    
+            //     }
+            //     tasks["stage2"] = {
+            //         stage("stage2") {
+            //             sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+            //         }    
+            //     }
 
-                parallel tasks 
+            //     parallel tasks 
 
-            }
+            // }
         
+                    def tasks = [:]
+            tasks["task_1"] = {
+            stage ("task_1"){    
+                node('jenkins') {  
+                    sh sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                }
+            }
+            }
+            tasks["task_2"] = {
+            stage ("task_2"){    
+                node('jenkins') {  
+                    sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+                }
+            }
+            }
+            parallel tasks
 
         stage(name: 'check if the container os running') {
             sh 'docker ps -a'
