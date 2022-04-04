@@ -24,7 +24,7 @@ def docker1() {
         //     }
         // }
 
-        def stage = [:] {
+        def stages = [:] {
             stage("stage1")={
                 sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
             }
@@ -32,7 +32,7 @@ def docker1() {
                 sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
             }
 
-            parallel stage
+            parallel stages
         }
 
         stage(name: 'check if the container os running') {
