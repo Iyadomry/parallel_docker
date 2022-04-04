@@ -24,12 +24,16 @@ def docker1() {
         //     }
         // }
 
-        def tasks  = [:] 
-            stage("stage1") = {
-                sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+            def tasks  = [:] 
+            tasks("stage1") = {
+                stage("stage1"){
+                    sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                }    
             }
-            stage("stage2")={
-                sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+            tasks("stage2") = {
+                stage("stage2") {
+                    sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
+                }    
             }
 
             parallel tasks 
