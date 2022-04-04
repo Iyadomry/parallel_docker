@@ -35,8 +35,8 @@ def docker1() {
 
         stage(name: 'check if the container os running') {
             sh 'docker ps -a'
-            sh "curl ${name1}:${port1} "
-            sh "curl ${name2}:${port2} "
+            sh "curl localhost:${port1} "
+            sh "curl localhost:${port2} "
         }
     }
 }
