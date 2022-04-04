@@ -18,7 +18,7 @@ def docker1() {
             parallel(
                 "StageA": {
                     stage("Deploy ${name1} ") {
-                            sh  "docker run --name ${name1} -d --rm -p ${port1}:81  httpd:2.4"
+                            sh  "docker run --name ${name1} -d --rm -p ${port1}:80  httpd:2.4"
                             sh " docker inspect ${name1}"
                             sleep 15
                     }
@@ -35,8 +35,8 @@ def docker1() {
 
         stage(name: 'check if the container os running') {
             sh 'docker ps -a'
-            sh "curl localhost:${port1} "
-            sh "curl localhost:${port2} "
+            sh "curl ${name1}:${port1} "
+            sh "curl ${name2}:${port2} "
         }
     }
 }
