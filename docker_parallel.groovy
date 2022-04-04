@@ -23,11 +23,13 @@ def docker1() {
             ansiColor('xterm') {
                 echo "\u001B[31mbuild new container\u001B[0m"
                 sh "docker run --name ${name1} -d --rm -p ${port1}:80  nginx"
+                sh "docker run --name ${name2} -d --rm -p ${port2}:80  nginx"
             }
         }
         stage(name: 'check if the container os running') {
             sh 'docker ps -a'
             sh "curl localhost:${port1} "
+            sh "curl localhost:${port2} "
         }
     }
 }
